@@ -46,8 +46,8 @@ jobs:
             PHP_VERSION=${{ matrix.php-version }}
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/app:${{ matrix.php-version }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=app-${{ matrix.php-version }}
+          cache-to: type=gha,mode=max,scope=app-${{ matrix.php-version }}
 
       - name: Build and push CLI image
         id: build-cli
@@ -58,8 +58,8 @@ jobs:
             PHP_VERSION=${{ matrix.php-version }}
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/cli:${{ matrix.php-version }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=cli-${{ matrix.php-version }}
+          cache-to: type=gha,mode=max,scope=cli-${{ matrix.php-version }}
 
       - name: Build and push Worker image
         id: build-worker
@@ -70,8 +70,8 @@ jobs:
             PHP_VERSION=${{ matrix.php-version }}
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/worker:${{ matrix.php-version }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=worker-${{ matrix.php-version }}
+          cache-to: type=gha,mode=max,scope=worker-${{ matrix.php-version }}
 
   sbom:
     runs-on: ubuntu-latest
