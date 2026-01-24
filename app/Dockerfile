@@ -1,4 +1,6 @@
-FROM php:8.3-fpm-alpine
+ARG PHP_VERSION=8.4
+
+FROM php:${PHP_VERSION}-fpm-alpine
 
 LABEL org.opencontainers.image.source https://github.com/aragon999/shopware-docker
 

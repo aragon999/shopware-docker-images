@@ -1,0 +1,12 @@
+.git
+.gitignore
+README.md
+*.md
+build.sh
+build-all.sh
+.DS_Store
+tmp.*
+*~
+.swp
+.swo
+*~

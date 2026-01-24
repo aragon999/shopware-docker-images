@@ -1,4 +1,6 @@
-FROM php:8.3-cli
+ARG PHP_VERSION=8.4
+
+FROM php:${PHP_VERSION}-cli
 
 # TODO: Correct source label
 LABEL org.opencontainers.image.source https://github.com/aragon999/shopware-docker
@@ -36,9 +38,9 @@ RUN set -x && \
 RUN echo "alias ll=\"ls -lha\"" >> ~/.bashrc && \
     echo 'eval $(fnm --fnm-dir=/nvm/.debian-fnm env --shell=bash)' >> ~/.bashrc
 
-ENV HOME /home/dev \
-    PS1 '${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;33m\]@\[\033[01;36m\]\h \[\033[01;33m\]\w \[\033[01;35m\]\$ \[\033[00m\]' \
-    SMTP_ADDRESS=smtp:1025
+ENV HOME /home/dev
+ENV PS1 '${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;33m\]@\[\033[01;36m\]\h \[\033[01;33m\]\w \[\033[01;35m\]\$ \[\033[00m\]'
+ENV SMTP_ADDRESS=smtp:1025
 
 USER dev
 
