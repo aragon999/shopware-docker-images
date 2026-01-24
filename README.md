@@ -12,7 +12,7 @@ This project provides three main container types:
 
 ## Features
 
-- PHP version configurable (8.1, 8.2, 8.3, 8.4)
+- PHP version configurable (see Available PHP Versions)
 - Separated worker processes for better control during setup
 - Includes all necessary PHP extensions for Shopware 6
 - Optimized for development with proper volume mounts
@@ -218,6 +218,18 @@ The CLI container includes:
 - yq for YAML processing
 - MariaDB client
 - Git, wget, zip, unzip
+
+## Image Registry and Tags
+
+Images are published to: `ghcr.io/aragon999/shopware-docker-images`
+
+For each image type (`app`, `cli`, `worker`), tags correspond to the PHP versions listed in the "Available PHP Versions" section.
+
+## Security
+
+- Images are scanned with Trivy for vulnerabilities
+- Results are uploaded to the GitHub Security tab
+- An SBOM (Software Bill of Materials) is generated for each image
 
 ## Continuation
 
