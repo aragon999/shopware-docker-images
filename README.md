@@ -21,7 +21,21 @@ This project provides three main container types:
 
 ## Quick Start
 
-### Building Images
+### Using Pre-built Images from GitHub Container Registry
+
+```bash
+# Pull images for PHP 8.4
+docker pull ghcr.io/aragon999/shopware-docker-images/app:8.4
+docker pull ghcr.io/aragon999/shopware-docker-images/cli:8.4
+docker pull ghcr.io/aragon999/shopware-docker-images/worker:8.4
+
+# Pull images for PHP 8.3
+docker pull ghcr.io/aragon999/shopware-docker-images/app:8.3
+docker pull ghcr.io/aragon999/shopware-docker-images/cli:8.3
+docker pull ghcr.io/aragon999/shopware-docker-images/worker:8.3
+```
+
+### Building Images Locally
 
 ```bash
 # Build with default PHP 8.4
@@ -36,6 +50,25 @@ docker build --build-arg PHP_VERSION=8.3 -t shopware-worker:php8.3 ./worker
 ```
 
 ### Docker Compose Example
+
+#### Option 1: Using Pre-built Images
+
+```yaml
+services:
+  app:
+    image: ghcr.io/aragon999/shopware-docker-images/app:8.4
+    # ... (rest of configuration)
+
+  worker:
+    image: ghcr.io/aragon999/shopware-docker-images/worker:8.4
+    # ... (rest of configuration)
+
+  cli:
+    image: ghcr.io/aragon999/shopware-docker-images/cli:8.4
+    # ... (rest of configuration)
+```
+
+#### Option 2: Building Locally
 
 ```yaml
 services:
