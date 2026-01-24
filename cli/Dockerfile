@@ -35,14 +35,14 @@ RUN set -x && \
     chmod +x /usr/local/bin/yq && \
     rm -rf /tmp/*
 
-RUN echo "alias ll=\"ls -lha\"" >> ~/.bashrc && \
-    echo 'eval $(fnm --fnm-dir=/nvm/.debian-fnm env --shell=bash)' >> ~/.bashrc
+USER dev
 
 ENV HOME /home/dev
 ENV PS1 '${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;33m\]@\[\033[01;36m\]\h \[\033[01;33m\]\w \[\033[01;35m\]\$ \[\033[00m\]'
 ENV SMTP_ADDRESS=smtp:1025
 
-USER dev
+RUN echo "alias ll=\"ls -lha\"" >> ~/.bashrc && \
+    echo 'eval $(fnm --fnm-dir=/nvm/.debian-fnm env --shell=bash)' >> ~/.bashrc
 
 COPY rootfs/ /
 WORKDIR /var/www/html
