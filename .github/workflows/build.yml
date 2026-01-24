@@ -37,30 +37,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata
-        id: meta-app
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/app
-          tags: |
-            type=raw,value=${{ matrix.php-version }}
-
-      - name: Extract metadata for CLI
-        id: meta-cli
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/cli
-          tags: |
-            type=raw,value=${{ matrix.php-version }}
-
-      - name: Extract metadata for Worker
-        id: meta-worker
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/worker
-          tags: |
-            type=raw,value=${{ matrix.php-version }}
-
       - name: Build and push App image
         id: build-app
         uses: docker/build-push-action@v5
@@ -69,8 +45,7 @@ jobs:
           build-args: |
             PHP_VERSION=${{ matrix.php-version }}
           push: true
-          tags: ${{ steps.meta-app.outputs.tags }}
-          labels: ${{ steps.meta-app.outputs.labels }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/app:${{ matrix.php-version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -82,8 +57,7 @@ jobs:
           build-args: |
             PHP_VERSION=${{ matrix.php-version }}
           push: true
-          tags: ${{ steps.meta-cli.outputs.tags }}
-          labels: ${{ steps.meta-cli.outputs.labels }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/cli:${{ matrix.php-version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -95,8 +69,7 @@ jobs:
           build-args: |
             PHP_VERSION=${{ matrix.php-version }}
           push: true
-          tags: ${{ steps.meta-worker.outputs.tags }}
-          labels: ${{ steps.meta-worker.outputs.labels }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/worker:${{ matrix.php-version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
