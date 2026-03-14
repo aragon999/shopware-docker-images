@@ -214,10 +214,10 @@ networks:
 The CLI container includes:
 - Composer
 - Shopware CLI
-- Node.js via fnm
+- Node.js via `fnm` version manager
 - yq for YAML processing
 - MariaDB client
-- Git, wget, zip, unzip
+- `git`, `wget`, `zip`, `unzip`, `jq`
 
 ## Image Registry and Tags
 
