@@ -6,7 +6,6 @@ FROM php:${PHP_VERSION}-cli
 LABEL org.opencontainers.image.source https://github.com/aragon999/shopware-docker
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
-COPY --from=ghcr.io/shyim/shopware-docker/sendmail /sendmail /usr/bin/sendmail
 COPY --from=ghcr.io/shopware/shopware-cli:bin /shopware-cli /usr/local/bin/shopware-cli
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -39,7 +38,6 @@ USER dev
 
 ENV HOME /home/dev
 ENV PS1 '${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;33m\]@\[\033[01;36m\]\h \[\033[01;33m\]\w \[\033[01;35m\]\$ \[\033[00m\]'
-ENV SMTP_ADDRESS=smtp:1025
 
 RUN echo "alias ll=\"ls -lha\"" >> ~/.bashrc && \
     echo 'eval $(fnm --fnm-dir=/nvm/.debian-fnm env --shell=bash)' >> ~/.bashrc

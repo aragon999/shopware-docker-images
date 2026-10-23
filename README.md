@@ -192,6 +192,21 @@ networks:
    docker-compose --profile workers up -d worker
    ```
 
+## Sending Email
+
+Configure Shopware to send email directly over SMTP. For a separate Mailpit service
+named `mailpit`, set this in Shopware's `.env.local` or in the environment of the
+app, CLI, and worker containers:
+
+```dotenv
+MAILER_DSN=smtp://mailpit:1025
+```
+
+Select **Use environment configuration** under **Settings > System > Mailer** in
+Shopware. Ensure all containers sending email share a Docker network with Mailpit.
+
+The plain PHP `mail()` function is not supported. Use SMTP to send email.
+
 ## Available PHP Versions
 
 - 8.1

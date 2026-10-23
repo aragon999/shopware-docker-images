@@ -5,7 +5,6 @@ FROM php:${PHP_VERSION}-fpm-alpine
 LABEL org.opencontainers.image.source https://github.com/aragon999/shopware-docker
 
 COPY --from=ghcr.io/shyim/supervisord /usr/local/bin/supervisord /usr/bin/supervisord
-COPY --from=ghcr.io/shyim/shopware-docker/sendmail /sendmail /usr/bin/sendmail
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 
 ENV TZ=Europe/Berlin \
@@ -17,8 +16,7 @@ ENV TZ=Europe/Berlin \
     PHP_MAX_UPLOAD_SIZE=128m \
     PHP_MAX_EXECUTION_TIME=300 \
     PHP_MEMORY_LIMIT=512m \
-    APP_DOCUMENT_ROOT=/var/www/html/public \
-    SMTP_ADDRESS=smtp:1025
+    APP_DOCUMENT_ROOT=/var/www/html/public
 
 RUN set -x && \
     apk add --no-cache \

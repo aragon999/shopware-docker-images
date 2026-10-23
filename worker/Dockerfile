@@ -6,7 +6,6 @@ LABEL org.opencontainers.image.source https://github.com/aragon999/shopware-dock
 
 COPY --from=ghcr.io/shyim/supervisord /usr/local/bin/supervisord /usr/bin/supervisord
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
-COPY --from=ghcr.io/shyim/shopware-docker/sendmail /sendmail /usr/bin/sendmail
 
 ENV TZ=Europe/Berlin \
     HOME=/var/www/html
