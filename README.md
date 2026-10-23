@@ -38,6 +38,9 @@ docker pull ghcr.io/aragon999/shopware-docker-images/worker:8.3
 ### Building Images Locally
 
 ```bash
+# Build the shared supervisord image used by app and worker
+docker build -t ghcr.io/aragon999/shopware-docker-images/supervisord:latest ./supervisord
+
 # Build with default PHP 8.4
 docker build -t shopware-app ./app
 docker build -t shopware-cli ./cli
@@ -48,6 +51,11 @@ docker build --build-arg PHP_VERSION=8.3 -t shopware-app:php8.3 ./app
 docker build --build-arg PHP_VERSION=8.3 -t shopware-cli:php8.3 ./cli
 docker build --build-arg PHP_VERSION=8.3 -t shopware-worker:php8.3 ./worker
 ```
+
+The `supervisord` image builds a pinned revision of
+[upstream supervisord](https://github.com/ochinchina/supervisord) with Go 1.27.3.
+CI builds it once and passes its image digest to all app and worker builds.
+For a custom image, set the `SUPERVISORD_IMAGE` build argument on app and worker.
 
 ### Docker Compose Example
 

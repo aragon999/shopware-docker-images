@@ -1,10 +1,13 @@
 ARG PHP_VERSION=8.4
+ARG SUPERVISORD_IMAGE=ghcr.io/aragon999/shopware-docker-images/supervisord:latest
+
+FROM ${SUPERVISORD_IMAGE} AS supervisord
 
 FROM php:${PHP_VERSION}-cli-alpine
 
 LABEL org.opencontainers.image.source https://github.com/aragon999/shopware-docker
 
-COPY --from=ghcr.io/shyim/supervisord /usr/local/bin/supervisord /usr/bin/supervisord
+COPY --from=supervisord /usr/local/bin/supervisord /usr/bin/supervisord
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 
 ENV TZ=Europe/Berlin \
