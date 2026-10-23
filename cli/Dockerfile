@@ -7,7 +7,7 @@ LABEL org.opencontainers.image.source https://github.com/aragon999/shopware-dock
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 COPY --from=ghcr.io/shyim/shopware-docker/sendmail /sendmail /usr/bin/sendmail
-COPY --from=ghcr.io/friendsofshopware/shopware-cli /usr/local/bin/shopware-cli /usr/local/bin/shopware-cli
+COPY --from=ghcr.io/shopware/shopware-cli:bin /shopware-cli /usr/local/bin/shopware-cli
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 RUN set -x && \
