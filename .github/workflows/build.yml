@@ -5,6 +5,11 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      no-cache:
+        description: 'Build without cache'
+        type: boolean
+        default: false
 
 env:
   REGISTRY: ghcr.io
@@ -40,6 +45,7 @@ jobs:
           context: ./supervisord
           platforms: linux/amd64,linux/arm64
           push: true
+          no-cache: ${{ inputs.no-cache || false }}
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/supervisord:latest
           cache-from: type=gha,scope=supervisord
           cache-to: type=gha,mode=max,scope=supervisord
@@ -80,6 +86,7 @@ jobs:
             PHP_VERSION=${{ matrix.php-version }}
             SUPERVISORD_IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/supervisord@${{ needs.supervisord.outputs.digest }}
           push: true
+          no-cache: ${{ inputs.no-cache || false }}
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/app:${{ matrix.php-version }}
           cache-from: type=gha,scope=app-${{ matrix.php-version }}
           cache-to: type=gha,mode=max,scope=app-${{ matrix.php-version }}
@@ -92,6 +99,7 @@ jobs:
           build-args: |
             PHP_VERSION=${{ matrix.php-version }}
           push: true
+          no-cache: ${{ inputs.no-cache || false }}
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/cli:${{ matrix.php-version }}
           cache-from: type=gha,scope=cli-${{ matrix.php-version }}
           cache-to: type=gha,mode=max,scope=cli-${{ matrix.php-version }}
@@ -105,6 +113,7 @@ jobs:
             PHP_VERSION=${{ matrix.php-version }}
             SUPERVISORD_IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/supervisord@${{ needs.supervisord.outputs.digest }}
           push: true
+          no-cache: ${{ inputs.no-cache || false }}
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/worker:${{ matrix.php-version }}
           cache-from: type=gha,scope=worker-${{ matrix.php-version }}
           cache-to: type=gha,mode=max,scope=worker-${{ matrix.php-version }}
